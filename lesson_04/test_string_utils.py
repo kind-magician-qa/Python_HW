@@ -86,3 +86,14 @@ def test_contains_parametrized_negative(string, symbol, expected):
 def test_delete_symbol_parametrized_positive(string, symbol, expected):
     s = StringUtils()
     assert s.delete_symbol(string, symbol) == expected
+
+
+@pytest.mark.negative
+@pytest.mark.parametrize("string, symbol, expected", [
+    ("", "a", ""),
+    ("SkyPro", "z", "SkyPro"),
+    ("SkyPro", "", "SkyPro"),
+])
+def test_delete_symbol_negative(string, symbol, expected):
+    s = StringUtils()
+    assert s.delete_symbol(string, symbol) == expected
