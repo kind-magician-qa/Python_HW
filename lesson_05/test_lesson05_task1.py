@@ -7,6 +7,8 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def test_back_and_url():
@@ -18,15 +20,14 @@ def test_back_and_url():
         html_form = driver.find_element(By.LINK_TEXT, "HTML Form")
         # Клик по ссылке
         html_form.click()
-        # Проверен переход URL на /forms/post.
+        # Явно ждём переход на /forms/post и проверяем URL
+        wait = WebDriverWait(driver, 10)
         expected_url = "https://httpbin.qa-territory.online/forms/post"
-        assert driver.current_url == expected_url
+        wait.until(EC.url_to_be(expected_url))
         # Возврат на главную страницу через driver.back()
         driver.back()
-        # Проверка исходного URL после возврата
+        # Явно ждём возврата и проверяем исходный URL
         expected_url = "https://httpbin.qa-territory.online/"
-        assert driver.current_url == expected_url, (
-            f"Ожидался URL {expected_url}, но получен {driver.current_url}"
-        )
+        wait.until(EC.url_to_be(expected_url))
     finally:
         driver.quit()
