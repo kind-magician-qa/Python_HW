@@ -15,9 +15,9 @@ def test_back_and_url():
         # Переход на страницу
         driver.get("https://httpbin.qa-territory.online/")
         # Нахождение ссылки
-        html_Form = driver.find_element(By.LINK_TEXT, "HTML Form")
+        html_form = driver.find_element(By.LINK_TEXT, "HTML Form")
         # Клик по ссылке
-        html_Form.click()
+        html_form.click()
         # Проверен переход URL на /forms/post.
         expected_url = "https://httpbin.qa-territory.online/forms/post"
         assert driver.current_url == expected_url
